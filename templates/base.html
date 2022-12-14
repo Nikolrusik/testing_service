@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <!-- ChartJS -->
+    <link rel="stylesheet" href="{% static 'css/Chart.min.css' %}" />
+
+    <title>{% block title %} Card control {% endblock title %}</title>
+  </head>
+
+  <body>
+    {% include 'includes/header.html' %} 
+    {% block messages %}
+    {% include 'includes/messages.html' %} 
+    {% endblock messages %}
+    <div class="container-md">{% block content %} {% endblock content %}</div>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- ChartJs -->
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+    {% block js %}
+    <script>
+      $(document).ready(function () {
+          {% if messages %}
+          // Toasts
+          $(".toast").toast({ delay: 5000 });
+          $(".toast").toast("show");
+          {% endif %}
+      });
+    </script>
+    {% endblock js %}
+  </body>
+</html>

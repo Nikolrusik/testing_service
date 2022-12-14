@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+<main class="form-signin w-50 m-auto">
+  <form method="POST">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Вход</h1>
+
+    <div class="form-floating"><label for="floatingInput">Username</label>
+      <input name="username" type="text" class="form-control" id="floatingInput" placeholder="Username" />
+
+    </div>
+    <div class="form-floating"><label for="floatingPassword">Password</label>
+      <input name="password" type="text" class="form-control" id="floatingPassword" placeholder="Password" />
+
+    </div>
+
+    <div class="checkbox mb-3">
+      <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+    <a class="w-100 btn btn-lg btn-primary" href="{% url 'authapp:register' %}">Регистрация</a>
+  </form>
+</main>
+{% endblock content %}
