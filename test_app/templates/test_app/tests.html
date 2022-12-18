@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     {% for test in tests %}
-    <tr onclick="document.location = '/test/{{ test.id }}'">
+    <tr onclick="document.location = '/questions/?test_id={{ test.id }}'">
       <th scope="row">{{ test.id }}</th>
       <td>{{ test.name }}</td>
       <td>{{ test.description }}</td>

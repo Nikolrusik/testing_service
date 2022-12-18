@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Результаты теста: {{ user_result.test.name }}</h1>
+    <p>Всего вопросов: {{ user_result.success_count|add:user_result.failure_count }}</p>
+    <p>Кол-во правильных ответов: {{ user_result.success_count }}</p>
+    <p>Кол-во неправильных ответов: {{ user_result.failure_count }}</p>
+    <p>Процентное соонтошение: {{success}}% верно из 100%</p>
+{% endblock content %}

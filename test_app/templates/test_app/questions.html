@@ -4,8 +4,7 @@
 {% block content %}
 <form method="POST">
   {% csrf_token %}
-  {{ request.session.items }}
-  {{ user.id }}
+  {% if request.GET.quest %}
   <div class="mb-3">
     <p class="form-label">{{ quest.quest }}</p>
     <input hidden type="text" name="test_id" value="{{ request.GET.test_id }}">
@@ -33,6 +32,12 @@
   </div>
   <button type="submit" class="btn btn-primary">Отправить</button>
   </div>
+  {% else %}
+  <h1>{{ test.name }}</h1>
+  <p>{{ test.description }}</p>
+  <a onclick="document.location = '?test_id={{ test.id }}&quest={{ first_quest.id }}'" class="btn btn-primary">Начать
+    прохождение</a>
+  {% endif %}
 
 </form>
 {% endblock content %}

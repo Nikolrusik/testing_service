@@ -7,5 +7,6 @@ app_name = TestAppConfig.name
 urlpatterns = [
     path("tests/", views.TestsView.as_view(), name="tests"),
     path("questions/", views.QuestView.as_view(), name="quest"),
+    path("results/<int:id>", views.UserResultsView.as_view(), name="results")
 
 ]

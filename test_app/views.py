@@ -16,6 +16,7 @@ class TestsView(TemplateView):
         context = super(TestsView, self).get_context_data(**kwargs)
         # if self.request.user.is_authenticated:
         context['tests'] = TestModel.objects.all()
+        context['questions'] = TestQuestionsModel.objects.all()
 
         return context
 
@@ -29,7 +30,9 @@ class QuestView(TemplateView):
         if self.request.GET.get('test_id'):
             test_id = self.request.GET.get('test_id')
             test = TestModel.objects.get(id=test_id)
-            context['questions'] = TestQuestionsModel.objects.filter(test=test)
+            context['questions'] = TestQuestionsModel.objects.filter(test=test).order_by('id')
+            context['first_quest']  = context['questions'].first()
+            context['test'] = test
             if 'questions' not in self.request.session:
                 self.request.session['questions'] = []
         if self.request.GET.get('quest'):
@@ -86,8 +89,16 @@ class QuestView(TemplateView):
             result.save()
             del request.session['questions']
             del request.session['test']
-            return HttpResponseRedirect(f"/result/?result_id={result.id}")
+            return HttpResponseRedirect(f"/results/{result.id}")
 
 
 class UserResultsView(TemplateView):
     template_name = "test_app/results.html"
+
+    def get_context_data(self, id=None, **kwargs):
+        context = super(UserResultsView, self).get_context_data(**kwargs)
+        context['user_result'] = UserResults.objects.get(id=id)
+        context['success'] = int(int(context['user_result'].success_count) * 100 /
+                                 (int(context['user_result'].success_count) +
+                                  int(context['user_result'].failure_count)))
+        return context
