@@ -133,3 +133,5 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = "authapp.AbstractUserModel"
 LOGIN_REDIRECT_URL = "test_app:tests"
 LOGOUT_REDIRECT_URL = "authapp:login"
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"

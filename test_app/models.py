@@ -9,7 +9,7 @@ class TestModel(models.Model):
 
 
 class TestQuestionsModel(models.Model):
-    quest = models.CharField(verbose_name="Quest")
+    quest = models.CharField(verbose_name="Quest", max_length=200)
     test = models.ForeignKey(TestModel, on_delete=models.CASCADE)
 
 
@@ -17,6 +17,7 @@ class AnswersQuestionModel(models.Model):
     answer = models.CharField(verbose_name="Answer option", max_length=300)
     is_success = models.BooleanField(verbose_name="Success", default=False)
     quest = models.ForeignKey(TestQuestionsModel, on_delete=models.CASCADE)
+    test = models.ForeignKey(TestModel, on_delete=models.CASCADE)
 
 
 class UserResults(models.Model):
@@ -24,5 +25,5 @@ class UserResults(models.Model):
     test = models.ForeignKey(TestModel, on_delete=models.CASCADE)
     success_count = models.CharField(
         verbose_name="Success quests", max_length=50)
-    Nosuccess_count = models.CharField(
-        verbose_name="Nosuccess quests", max_length=50)
+    failure_count = models.CharField(
+        verbose_name="Failure quests", max_length=50)

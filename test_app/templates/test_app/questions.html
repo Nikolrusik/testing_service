@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  {{ request.session.items }}
+  {{ user.id }}
+  <div class="mb-3">
+    <p class="form-label">{{ quest.quest }}</p>
+    <input hidden type="text" name="test_id" value="{{ request.GET.test_id }}">
+    <input hidden type="text" name="quest_id" value="{{ request.GET.quest }}">
+    <input hidden type="text" name="success_answers_count" value="{{ success_answers_count }}">
+    {% if success_answers_count > 1 %}
+    {% for answer in answers %}
+    <div class="form-check">
+      <input class="form-check-input" name="answer_check" type="checkbox" value="{{ answer.id }}" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+        {{ answer.answer }}
+      </label>
+    </div>
+    {% endfor %}
+    {% else %}
+    {% for answer in answers %}
+    <div class="form-check">
+      <input class="form-check-input" name="answer_radio" type="radio" value="{{ answer.id }}" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+        {{ answer.answer }}
+      </label>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <button type="submit" class="btn btn-primary">Отправить</button>
+  </div>
+
+</form>
+{% endblock content %}
